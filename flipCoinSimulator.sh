@@ -5,17 +5,30 @@ tail=0
 count=0
 if [[ $count == 0 ]]
 then
-	while (( $count < 43 ))
+	while (( $count < 42 ))
 	do
 		flip_result=$((RANDOM%2))
 		if [[ $flip_result == $head ]]
 		then
-			((Hcount++))
+			#((Hcount++))
+			if [[ $Hcount == 21 ]]
+			then
+				echo "Head won 21 times by $(($Hcount - Tcount)) times more than Tail"
+			fi
+		((Hcount++))
 		else
-			((Tcount++))
+			if [[ $Tcount == 21 ]]
+			then
+				echo "Tail won 21 times by $((Tcount - $Hcount)) times more than Head"
+			fi
+		((Tcount++))
 		fi
-	((count++))
+		((count++))
 	done
-	echo "Head value $head won for $Hcount times"
-	echo "Tail value $tail won for $Tcount times"
+
+        if [[ $Hcount == 21 && $Tcount == 21 ]]
+        then
+		echo "Both are tie Head=$Hcount and Tail=$Tcount"
+        fi
+
 fi
